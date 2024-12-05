@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const { type } = require('joi/lib/types/object');
 
 const Rental = mongoose.model('Rental', new mongoose.Schema({
     customer: {
@@ -11,7 +12,7 @@ const Rental = mongoose.model('Rental', new mongoose.Schema({
                 maxlength: 55,
             },
             isGold: {
-                typr: Boolean,
+                type: Boolean,
                 required: true
             },
             phone: {
