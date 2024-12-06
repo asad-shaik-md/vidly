@@ -1,7 +1,9 @@
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const Register = mongoose.model('Register', new mongoose.Schema({
+const registerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -16,7 +18,14 @@ const Register = mongoose.model('Register', new mongoose.Schema({
         required: true,
         minlength: 8
     }
-}))
+})
+
+registerSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
+    return token;
+};
+
+const Register = mongoose.model('Register', registerSchema)
 
 function validateRegister(details) {
     const schema ={
