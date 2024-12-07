@@ -1,3 +1,4 @@
+const auth = require('../middleware/auth')
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
@@ -5,6 +6,11 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 const { Register, validate } = require('../models/register');
+
+router.get('/me', auth,  async (req, res) => {
+    const user = await Register.findById(req.user._id).select('-password');
+    res.send(user)
+})
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);

@@ -17,11 +17,12 @@ const registerSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8
-    }
+    },
+    isAdmin: Boolean
 })
 
 registerSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
+    const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('jwtPrivateKey'));
     return token;
 };
 
