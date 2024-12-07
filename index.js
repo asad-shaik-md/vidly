@@ -8,7 +8,7 @@ const genres = require('./routes/genres');
 const customers = require('./routes/customers');
 const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
-const register = require('./routes/register');
+const users = require('./routes/Users')
 const auth = require('./routes/auth');
 
 if (!config.get('jwtPrivateKey')) {
@@ -23,7 +23,7 @@ app.use('/api/genres', genres);
 app.use('/api/customers', customers);
 app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
-app.use('/api/register', register);
+app.use('/api/users', users);
 app.use('/api/auth', auth);
 
 const port = process.env.PORT || 3000;
